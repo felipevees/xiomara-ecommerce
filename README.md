@@ -12,4 +12,5 @@ To install the Acta Sports Project should install a env with the requeriments:
     pip install -r requirements.txt
 
 -Run the Project:
+
     python manage.py runserver
