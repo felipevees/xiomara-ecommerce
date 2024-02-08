@@ -1,0 +1,113 @@
+{% load static %} 
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+  crossorigin="anonymous"
+/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script
+  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+  integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+  integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+  crossorigin="anonymous"
+></script>
+<style>
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  .login{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0b4b88;
+    height: 100%;
+  }
+  .content {
+    background-color: white;
+    padding: 50px 100px;
+    border-radius: 20px;
+    width: fit-content;
+    box-shadow: 1px 3px 30px 14px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 1px 3px 30px 14px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 3px 30px 14px rgba(0, 0, 0, 0.75);
+    text-align: center;
+  }
+  
+  .form-control {
+    border-radius: 15px !important;
+  }
+
+  h1 {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  @media(max-width:768px){
+    .content{
+        margin:20px;
+        padding: 25px 50px;
+    }
+    h1{
+        font-size: 25px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="login">
+  <div class="content">
+    <img
+      class="mb-4"
+      src="{% static 'admin/img/logo.png' %}"
+      alt="logo"
+      width="90"
+      height="80"
+    />
+    <h1 >Entrar al panel</h1>
+    <div class="form">
+        <form class="form-container">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Nombre de usuario</label>
+              <input type="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">login</button>
+          </form
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $("form").submit(function(event) {
+      event.preventDefault();
+      
+      var username = $("#exampleInputEmail1").val();
+      var password = $("#exampleInputPassword1").val();
+      
+      if(username && password){
+        window.location.replace("/dashboard/");
+      }else{
+        console.log("error")
+      }
+      
+    });
+  });
+  </script>
+</body>
