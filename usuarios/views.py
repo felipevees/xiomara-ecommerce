@@ -15,3 +15,6 @@ def login(request):
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
+
+def information(request):
+    return render(request, 'information.html')

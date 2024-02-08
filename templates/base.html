@@ -28,7 +28,7 @@
         nav{z-index: 1;}
 
         .navbar{
-          height:100px;
+          height:90px;
         }
         .w-responsive{
             width: 25%;
@@ -38,7 +38,7 @@
                 width: 100%;
             }
             nav{
-              height: 100px !important;
+              height: 90px !important;
               display: flex;
               justify-content: space-between;
               align-items: center;
@@ -106,7 +106,7 @@
         </ul>
     </div>
 </div>
-<nav class="navbar navbar-expand-md navbar-light bg-white d-none pc_item mb-4">
+<nav class="navbar navbar-expand-md navbar-light bg-white d-none pc_item ">
   <div class="container-xxl">
       <div>
           <a class="navbar-brand" href="#" style="width: fit-content; height: fit-content; display: flex;">
@@ -138,7 +138,7 @@
               </li>
           </ul>
           <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+              <input class=" form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
               <button class="btn " type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
           </form>
       </div>
@@ -150,7 +150,7 @@
   </button>
   <img src="{% static 'admin/img/logo.png' %}" style="height: 75px;">
   <form class="d-flex">
-    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+    <input class="mobile  form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
     <button class="btn " type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 </form>
 </nav>
@@ -225,6 +225,7 @@
                 $('.mobile_item').addClass('d-none')
                 $('.pc_item').removeClass("d-none")
             }
+
         })
     </script>
 </body>
