@@ -1,0 +1,138 @@
+{% extends 'dashboard.html' %} {% load static%} {%block head2%}
+<style>
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  a {
+    font-size: 15px !important;
+
+  }
+
+  .container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .table-container {
+    padding: 0 20px;
+  }
+
+  .table {
+    width: 100%;
+    text-align: center;
+  }
+
+  .table th,
+  .table td {
+    vertical-align: middle;
+  }
+</style>
+{%endblock%} {%block content %}
+<div className="container2 mt-4">
+  <h2 class="px-4">Categorias</h2>
+
+  <div class="px-4">
+    <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Agregar
+      categoria</button>
+  </div>
+</div>
+<div class="container2 table-container mt-4">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">
+          tools
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for categoria in categorias %}
+      <tr>
+        <td>{{ categoria.nombre }}</td>
+        <td>{{ categoria.descripcion }}</td>
+        <td> <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateCategoryModal"
+            data-category-id="{{ categoria.id }}">Actualizar</a>
+
+          <a href="{% url 'deleteCategory' id=categoria.id %}" name="delete" class=" btn btn-danger">Eliminar</a>
+
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
+        <h3 class="modal-title" id="addCategoryModalLabel">Agregar nueva categoria</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'createCategory' %}">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label for="" class="form-label">Nombre</label>
+            <input name="nombre" type="text">
+          </div>
+
+          <div class="mb-3">
+            <label for="" class="form-label">Descripción</label>
+            <input name="descripcion" type="text">
+          </div>
+          <button type="submit" class="btn btn-success">Crear Categoria</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
+        <h3 class="modal-title" id="updateCategoryLabel">Agregar nueva categoria</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'updateCategory' id=0 %}" id="updateCategoryForm">
+          {% csrf_token %}
+          <input type="hidden" name="category_id" id="updateCategoryId" value="">
+
+          <div class="mb-3">
+            <label for="" class="form-label">Nombre</label>
+            <input name="nombre" type="text">
+          </div>
+
+          <div class="mb-3">
+            <label for="" class="form-label">Descripción</label>
+            <input name="descripcion" type="text">
+          </div>
+          <button type="submit" class="btn btn-success">Actualizar Categoria </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#updateCategoryModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var categoryId = button.data('category-id');
+    var modal = $(this);
+    modal.find('#updateCategoryId').val(categoryId);
+    var formAction = '{% url "updateCategory" id=0 %}'.replace('0', categoryId);
+    modal.find('#updateCategoryForm').attr('action', formAction);
+  });
+</script>
+{%endblock%}

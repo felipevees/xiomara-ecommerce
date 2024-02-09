@@ -1,0 +1,166 @@
+{% extends 'dashboard.html' %} {% load static%} {%block head2%}
+<style>
+    div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+    }
+
+    img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+
+    .container2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .table-container {
+        padding: 0 20px;
+    }
+
+    .table {
+        width: 100%;
+        text-align: center;
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle;
+    }
+</style>
+{%endblock%} {%block content %}
+<div class="mt-4 mb-4">
+    <div>
+        <h2 class="px-4">Productos</h2>
+    </div>
+    <div class="px-4">
+
+        <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addProductModal">Agregar
+            producto</button>
+    </div>
+</div>
+
+<div class="container2 table-container mt-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Imágenes</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">
+                    tools
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.nombre }}</td>
+                <td>{{ product.precio }}</td>
+                <td>
+                    {% for image in product.imagenes.all %}
+                    <img class="product-image" src="{{ image.imagen.url }}" alt="{{ product.nombre }} Image">
+                    {% endfor %}
+                </td>
+                <td>{% for categoria in product.categorias.all %}
+                    {{ categoria.nombre }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}</td>
+                <td><a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProductModal"
+                        data-product-id="{{ product.id }}">Actualizar</a>
+                    <a name="delete" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
+                <h3 class="modal-title" id="addProductModalLabel">Agregar producto</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Nombre</label>
+                        <input name="nombre" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Descripción</label>
+                        <input name="nombre" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Descripción corta</label>
+                        <input name="nombre" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Precio</label>
+                        <input name="nombre" type="number">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="categorias" class="form-label">Categorías</label>
+                        <select name="categorias" id="categorias" class="form-select" multiple>
+                            {% for categoria in categorias %}
+                            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="imagenes" class="form-label">Imágenes</label>
+                        <input type="file" name="imagenes" multiple>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Agregar Producto</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+< <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="updateProductModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
+                <h3 class="modal-title" id="updateProductLabel">Agregar nueva categoria</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="" id="updateProductForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" id="updateCategoryId" value="">
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Nombre</label>
+                        <input name="nombre" type="text">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Descripción</label>
+                        <input name="descripcion" type="text" ">
+          </div>
+          <button type=" submit" class="btn btn-success">Actualizar Categoria </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+
+    </script>
+
+    {%endblock%}
