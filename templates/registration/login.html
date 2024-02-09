@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block head%}
+<style>
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  .login {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #0b4b88;
+    height: 100%;
+  }
+
+  .content {
+    background-color: white;
+    padding: 50px 100px;
+    border-radius: 20px;
+    width: fit-content;
+    box-shadow: 1px 3px 30px 14px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 1px 3px 30px 14px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 3px 30px 14px rgba(0, 0, 0, 0.75);
+    text-align: center;
+  }
+
+  .form-control {
+    border-radius: 15px !important;
+  }
+
+  h1 {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  @media(max-width:768px) {
+    .content {
+      margin: 20px;
+      padding: 25px 50px;
+    }
+
+    h1 {
+      font-size: 25px;
+    }
+  }
+</style>
+{%endblock%}
+{% block body %}
+
+<div class="login">
+
+  <div class="content">
+    <img class="mb-4" src="{% static 'admin/img/logo.png' %}" alt="logo" width="90" height="80" />
+    <h1>Entrar al panel</h1>
+    <div class="form">
+      {% if error_message %}
+      <p>{{ error_message }}</p>
+      {% endif %}
+      <form method="post" action="{% url 'login' %}" class="form-container">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Nombre de usuario</label>
+          <input name="username" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input name="password" type="password" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">iniciar sesion</button>
+      </form </div>
+    </div>
+
+  </div>
+  <div>
+    <button class="btn btn-warning mt-4">
+      Volver a inicio
+    </button>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $(".btn-warning").click(function () {
+        window.location.href = "{% url 'home' %}";
+      });
+    });
+  </script>
+  {%endblock%}

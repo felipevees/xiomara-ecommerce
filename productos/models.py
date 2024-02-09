@@ -19,7 +19,7 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=255)
     descripcion = models.TextField()
     short_desc = models.TextField(max_length=50)
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    precio = models.DecimalField(max_digits=6, decimal_places=3)
     categorias = models.ManyToManyField(Categoria, related_name='productos')
 
     def __str__(self):
