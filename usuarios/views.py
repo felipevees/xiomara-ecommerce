@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 
-
 from productos.models import ImagenProducto, Producto
 from categorias.models import Categoria
 
@@ -53,10 +52,35 @@ def createProduct(request):
     categorias_ids = request.POST.getlist('categorias')
     producto=Producto.objects.create(nombre=nombreProducto, descripcion=descripcionProducto, short_desc= short_descProducto, precio= precioProducto)
     producto.categorias.set(categorias_ids)
-    products.save()
+    producto.save()
 
     for imagen in request.FILES.getlist('imagenes'):
             ImagenProducto.objects.create(producto=producto, imagen=imagen)
+    return redirect('products')
+
+def deleteProduct(request, id):
+    products = Producto.objects.get(id=id)
+    products.delete()
+    return redirect('products')
+
+def updateProduct(request, id):
+    productoActualizado = Producto.objects.get(id=id)
+    nombreProductoActualizado = request.POST['nombre']
+    descripcionProductoActualizado = request.POST['descripcion']
+    short_descProductoActualizado = request.POST['short_desc']
+    precioProductoActualizado = request.POST['precio']
+    categorias_idsActualizado = request.POST.getlist('categorias')
+
+    productoActualizado.nombre = nombreProductoActualizado
+    productoActualizado.descripcion = descripcionProductoActualizado
+    productoActualizado.short_desc = short_descProductoActualizado
+    productoActualizado.precio = precioProductoActualizado
+    
+    productoActualizado.categorias.set(categorias_idsActualizado)
+    productoActualizado.save()
+    productoActualizado.imagenes.all().delete()
+    for imagen in request.FILES.getlist('imagenes'):
+        ImagenProducto.objects.create(producto=productoActualizado, imagen=imagen)
     return redirect('products')
 
 #Categorias

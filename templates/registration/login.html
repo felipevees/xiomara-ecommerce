@@ -55,11 +55,7 @@
 {% block body %}
 
 <div class="login">
-  <div>
-    <button class="btn btn-primary mb-4">
-      Volver
-    </button>
-  </div>
+
   <div class="content">
     <img class="mb-4" src="{% static 'admin/img/logo.png' %}" alt="logo" width="90" height="80" />
     <h1>Entrar al panel</h1>
@@ -81,10 +77,16 @@
         <button type="submit" class="btn btn-primary">iniciar sesion</button>
       </form </div>
     </div>
+
+  </div>
+  <div>
+    <button class="btn btn-warning mt-4">
+      Volver a inicio
+    </button>
   </div>
   <script>
     $(document).ready(function () {
-      $(".btn-primary").click(function () {
+      $(".btn-warning").click(function () {
         window.location.href = "{% url 'home' %}";
       });
     });

@@ -19,7 +19,7 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-from usuarios.views import home, login, dashboard, information, products,createProduct, categories, createCategory, deleteCategory, updateCategory
+from usuarios.views import home, login, dashboard, information, products,createProduct,deleteProduct,updateProduct, categories, createCategory, deleteCategory, updateCategory
 
 # ... tus otras URLpatterns
 
@@ -32,6 +32,8 @@ urlpatterns = [
     path('information/', information, name='information'),
     path('products/', products, name='products'),
     path('createProduct/', createProduct, name='createProduct'),
+    path('deleteProduct/<int:id>/', deleteProduct, name='deleteProduct'),
+    path('updateCProduct/<int:id>/', updateProduct, name="updateProduct"),
     path('categories/', categories, name='categories'),
     path('create_category/', createCategory, name='createCategory'),
     path('deleteCategory/<int:id>/', deleteCategory, name='deleteCategory'),
