@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-{% load static %} 
+{% load static %}
 {% block head%}
 <style>
   body,
@@ -8,9 +8,83 @@
     padding: 0;
     height: 100%;
   }
-  
 </style>
+<script src="https://kit.fontawesome.com/4439c74de6.js" crossorigin="anonymous"></script>
 {%endblock%}
 {% block body%}
-    <div>Hola mundo</div>
+<div class="container-fluid text-center align-items-center">
+
+  <!-- Botón de regresar y título -->
+  <div class="row mb-3 align-items-center">
+    <div class="col-2">
+      <div data-bs-theme="dark" class="mb-3">
+        <button type="button" class="btn py-3 fa-2x">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-8">
+      <h1 class="elegante">Audífonos Inalámbricos</h1>
+    </div>
+  </div>
+
+  <!-- Imagen del producto -->
+  <div class="row justify-content-center mb-3">
+    <div class="col-11 text-center">
+      <img src="../static/admin/img/carousel2.jpg" class="img-fluid rounded" alt="Imagen del producto">
+    </div>
+  </div>
+
+
+  <!-- Precio y Botón -->
+  <div class="row mb-3 align-items-center pt-4">
+    <div class="col">
+      <div class="row align-items-center" style="padding-left: 20px; white-space: nowrap;">
+        <div class="col">
+          <div class="text-start display-5 py-2 pt-2" style="color: #074e85;font-weight: bold;">
+            $ 2.220.900
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Descripción del producto -->
+  <div class="row align-items-center">
+    <div class="col">
+      <div style="padding-right: 20px;">
+        <p style="text-align: left; padding-left: 20px; line-height: 2.5;" class="mb-3 pt-4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Sed accumsan malesuada velit nec hendrerit. Quisque bibendum urna vel orci ultrices.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botones de compartir -->
+  <div class="row mb-5 justify-content-center" style="margin-top: 30px;">
+    <div class="col-lg-6 col-md-8 col-sm-10 text-center">
+      <div class="d-inline-block circle-btn mx-2" style="margin-bottom: 30px;">
+        <button class="btn btn-primary"
+          style="background-color: #1264a3; border-radius: 20px; width: 70px; height: 55px;" type="button">
+          <i class="fa-solid fa-share-nodes fa-2x" style="color: #ffffff;"></i>
+        </button>
+      </div>
+      <div class="d-inline-block circle-btn mx-2 text-center" style="margin-bottom: 30px;">
+        <button class="btn btn-success"
+          style="border-radius: 20px; min-width: 240px; font-size: 22px; padding: 10px 40px;">
+          <div class="d-flex align-items-center">
+            <i class="fab fa-whatsapp fa-2x" style="color: #ffffff; margin-right: 15px;"></i>
+            <span class="align-middle">Comprar</span>
+          </div>
+        </button>
+      </div>
+    </div>
+      
+  </div>
+
+</div>
 {%endblock%}
