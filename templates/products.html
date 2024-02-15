@@ -1,206 +1,253 @@
 {% extends 'dashboard.html' %} {% load static%} {%block head2%}
 <style>
-    div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-direction: row;
-    }
-
-    a {
-        font-size: 15px !important;
-
-    }
-
     img {
         max-width: 100px;
         max-height: 100px;
+        border-radius: 5px;
     }
 
-    .container2 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+
 
     .table-container {
         padding: 0 20px;
     }
 
     .table {
-        width: 100%;
+        height: 90vh;
+        background-color: #fff5;
         text-align: center;
+        backdrop-filter: blur(7px);
+        box-shadow: 0 .4rem .8rem #0005;
+        border-radius: .8rem;
+        overflow: hidden;
     }
 
-    .table th,
+    .table th {
+        font-size: 20px !important;
+        height: 50px !important;
+        text-align: center !important;
+        line-height: 50px !important;
+    }
+
     .table td {
         vertical-align: middle;
     }
+
+    .header-products {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .actualizar {
+        font-size: 14px !important;
+        color: #fff;
+        background: linear-gradient(90deg, #0066CC 0%, #00b4d8 100%);
+        padding: 7px 7px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white !important;
+        transition: padding 0.2s ease;
+
+        &:hover {
+            padding: 9px 7px;
+        }
+    }
+
+    .eliminar {
+        font-size: 14px !important;
+        color: #fff;
+        background: linear-gradient(90deg, #cc0000 0%, #d83a00 100%);
+        padding: 7px 7px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white !important;
+        transition: padding 0.2s ease;
+
+        &:hover {
+            padding: 9px 7px;
+        }
+    }
+
+    .addproduct {
+        transition: padding 0.2s ease !important;
+
+        &:hover {
+            padding: 6px 14px !important;
+        }
+    }
+
+    .products {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 </style>
-{%endblock%} {%block content %}
-<div class="mt-4 mb-4">
-    <div>
-        <h2 class="px-4">Productos</h2>
+{%endblock%} {%block content2 %}
+<div class="products">
+    <div class="header-products mt-4 mb-4">
+        <div>
+            <h2 class="px-4">Productos</h2>
+        </div>
+        <div class="px-4">
+
+            <button class="addproduct btn btn-success ms-2" data-bs-toggle="modal"
+                data-bs-target="#addProductModal">Agregar
+                producto</button>
+        </div>
     </div>
-    <div class="px-4">
 
-        <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addProductModal">Agregar
-            producto</button>
+    <div class="container2 table-container mt-4">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Imágenes</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">
+                        tools
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.nombre }}</td>
+                    <td>{{ product.precio }}</td>
+                    <td>
+                        {% for image in product.imagenes.all %}
+                        <img class="product-image" src="{{ image.imagen.url }}" alt="{{ product.nombre }} Image">
+                        {% endfor %}
+                    </td>
+                    <td>{% for categoria in product.categorias.all %}
+                        {{ categoria.nombre }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}</td>
+                    <td><a href="#" class="btn actualizar" data-bs-toggle="modal" data-bs-target="#updateProductModal"
+                            data-product-id="{{ product.id }}">Actualizar</a>
+                        <a name="delete" class="btn eliminar"
+                            href="{% url 'deleteProduct' id=product.id %}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-</div>
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
+                    <h3 class="modal-title" id="addProductModalLabel">Agregar producto</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'createProduct' %}" enctype="multipart/form-data" class="my-4">
+                        {% csrf_token %}
 
-<div class="container2 table-container mt-4">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Imágenes</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">
-                    tools
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-            <tr>
-                <td>{{ product.nombre }}</td>
-                <td>{{ product.precio }}</td>
-                <td>
-                    {% for image in product.imagenes.all %}
-                    <img class="product-image" src="{{ image.imagen.url }}" alt="{{ product.nombre }} Image">
-                    {% endfor %}
-                </td>
-                <td>{% for categoria in product.categorias.all %}
-                    {{ categoria.nombre }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}</td>
-                <td><a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateProductModal"
-                        data-product-id="{{ product.id }}">Actualizar</a>
-                    <a name="delete" class="btn btn-danger" href="{% url 'deleteProduct' id=product.id %}">Eliminar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
-                <h3 class="modal-title" id="addProductModalLabel">Agregar producto</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{% url 'createProduct' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input name="nombre" id="nombre" type="text" class="form-control" required>
+                        </div>
 
-                    <div class=" mb-3">
-                        <label for="" class="form-label">Nombre</label>
-                        <input name="nombre" type="text">
-                    </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <textarea name="descripcion" id="descripcion" class="form-control" rows="3"
+                                required></textarea>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="" class="form-label">Descripción</label>
-                        <input name="descripcion" type="text">
-                    </div>
+                        <div class="mb-3">
+                            <label for="short_desc" class="form-label">Descripción corta</label>
+                            <input name="short_desc" id="short_desc" type="text" class="form-control">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="" class="form-label">Descripción corta</label>
-                        <input name="short_desc" type="text">
-                    </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio</label>
+                            <input name="precio" id="precio" type="number" class="form-control" required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="" class="form-label">Precio</label>
-                        <input name="precio" type="number">
-                    </div>
+                        <div class="mb-3">
+                            <label for="categorias" class="form-label">Categorías</label>
+                            <select name="categorias" id="categorias" class="form-select" multiple required>
+                                {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="categorias" class="form-label">Categorías</label>
-                        <select name="categorias" id="categorias" class="form-select" multiple>
-                            {% for categoria in categorias %}
-                            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                        <div class="mb-3" id="imageInputs">
+                            <label for="imagenes" class="form-label">Imágenes</label>
+                            <div class="input-group">
+                                <input type="file" name="imagenes" multiple class="form-control" required>
+                                <button type="button" class="btn btn-outline-secondary"
+                                    onclick="addImageInput()">+</button>
+                            </div>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="imagenes" class="form-label">Imágenes</label>
-                        <input type="file" name="imagenes" multiple>
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagenes" class="form-label">Imágenes</label>
-                        <input type="file" name="imagenes" multiple>
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagenes" class="form-label">Imágenes</label>
-                        <input type="file" name="imagenes" multiple>
-                    </div>
-
-                    <button type="submit" class="btn btn-success">Agregar Producto</button>
-                </form>
+                        <button type="submit" class="btn btn-success">Agregar Producto</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="updateProductModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
-                <h3 class="modal-title" id="updateProductModalLabel">Actualizar producto</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{% url 'createProduct' %}" enctype="multipart/form-data"
-                    id="updateProductForm">
-                    {% csrf_token %}
-                    <input type="hidden" name="product_id" id="updateProductId" value="">
-                    <div class=" mb-3">
-                        <label for="" class="form-label">Nombre</label>
-                        <input name="nombre" type="text">
-                    </div>
+    <div class="modal fade" id="updateProductModal" tabindex="-1" aria-labelledby="updateProductModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
+                    <h3 class="modal-title" id="updateProductModalLabel">Actualizar producto</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'createProduct' %}" enctype="multipart/form-data"
+                        id="updateProductForm" class="my-4">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" id="updateProductId" value="">
 
-                    <div class="mb-3">
-                        <label for="" class="form-label">Descripción</label>
-                        <input name="descripcion" type="text">
-                    </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input name="nombre" type="text" class="form-control" required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="" class="form-label">Descripción corta</label>
-                        <input name="short_desc" type="text">
-                    </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción</label>
+                            <input name="descripcion" type="text" class="form-control" required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="" class="form-label">Precio</label>
-                        <input name="precio" type="number">
-                    </div>
+                        <div class="mb-3">
+                            <label for="short_desc" class="form-label">Descripción corta</label>
+                            <input name="short_desc" type="text" class="form-control">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="categorias" class="form-label">Categorías</label>
-                        <select name="categorias" id="categorias" class="form-select" multiple>
-                            {% for categoria in categorias %}
-                            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                        <div class="mb-3">
+                            <label for="precio" class="form-label">Precio</label>
+                            <input name="precio" type="number" class="form-control" required>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="imagenes" class="form-label">Imágenes</label>
-                        <input type="file" name="imagenes" multiple>
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagenes" class="form-label">Imágenes</label>
-                        <input type="file" name="imagenes" multiple>
-                    </div>
-                    <div class="mb-3">
-                        <label for="imagenes" class="form-label">Imágenes</label>
-                        <input type="file" name="imagenes" multiple>
-                    </div>
+                        <div class="mb-3">
+                            <label for="categorias" class="form-label">Categorías</label>
+                            <select name="categorias" id="categorias" class="form-select" multiple>
+                                {% for categoria in categorias %}
+                                <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <button type="submit" class="btn btn-success">Actualizar Producto</button>
-                </form>
+                        <div class="mb-3" id="imageInputs2">
+                            <label for="imagenes" class="form-label">Imágenes</label>
+                            <div class="input-group image2">
+                                <input type="file" name="imagenes" multiple class="form-control" required>
+                                <button type="button" class="btn btn-outline-secondary"
+                                    onclick="updateImageInput()">+</button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Actualizar Producto</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -214,6 +261,65 @@
         var formAction = '{% url "updateProduct" id=0 %}'.replace('0', productId);
         modal.find('#updateProductForm').attr('action', formAction);
     });
+    function addImageInput() {
+        const container = document.getElementById('imageInputs');
+        const existingInputs = container.querySelectorAll('.input-group');
+
+        if (existingInputs.length < 5) {
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group mt-2';
+
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.name = 'imagenes';
+            input.multiple = true;
+            input.className = 'form-control';
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'btn btn-outline-secondary';
+            button.textContent = '-';
+            button.onclick = function () {
+                container.removeChild(inputGroup);
+            };
+
+            inputGroup.appendChild(input);
+            inputGroup.appendChild(button);
+            container.appendChild(inputGroup);
+        } else {
+            alert('Maximo de 5 imagenes alcanzado');
+        }
+    }
+    function updateImageInput() {
+        const container = document.getElementById('imageInputs2');
+        const existingInputs2 = container.querySelectorAll('.image2');
+
+        if (existingInputs2.length < 5) {
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group mt-2';
+
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.name = 'imagenes';
+            input.multiple = true;
+            input.className = 'form-control';
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'btn btn-outline-secondary';
+            button.textContent = '-';
+            button.onclick = function () {
+                container.removeChild(inputGroup);
+            };
+
+            inputGroup.appendChild(input);
+            inputGroup.appendChild(button);
+            container.appendChild(inputGroup);
+        } else {
+            alert('Maximo de 5 imagenes alcanzado');
+        }
+    }
+
 </script>
 
 {%endblock%}
