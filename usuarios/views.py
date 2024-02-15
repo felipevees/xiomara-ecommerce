@@ -6,6 +6,8 @@ from categorias.models import Categoria
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login
 
+from django.db.models import Q
+
 def home(request):
     products = Producto.objects.all()
     categorias = Categoria.objects.all()
@@ -113,4 +115,15 @@ def updateCategory(request, id):
 #Information
 
 def information(request):
-    return render(request, 'information.html')
+    products = Producto.objects.all()
+    return render(request, 'information.html', {'products': products})
+
+#Search
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['searched'].lower()
+        products = Producto.objects.filter(Q(nombre__icontains=searched) | Q(categorias__nombre__icontains=searched))
+        return render(request, 'search.html', {'searched': searched, 'products':products})
+    else:
+        return render(request, 'search.html')

@@ -19,7 +19,7 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-from usuarios.views import home, login, dashboard, information, products,createProduct,deleteProduct,updateProduct, categories, createCategory, deleteCategory, updateCategory
+from usuarios.views import home, login, dashboard, information, products,createProduct,deleteProduct,updateProduct, categories, createCategory, deleteCategory, updateCategory, search
 
 # ... tus otras URLpatterns
 
@@ -38,6 +38,7 @@ urlpatterns = [
     path('create_category/', createCategory, name='createCategory'),
     path('deleteCategory/<int:id>/', deleteCategory, name='deleteCategory'),
     path('updateCategory/<int:id>/', updateCategory, name="updateCategory"),
+    path('search/', search, name='search'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

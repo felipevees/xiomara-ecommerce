@@ -5,6 +5,7 @@
     color: #ffffff58;
     font-weight: lighter;
   }
+
   nav {
     z-index: 1;
   }
@@ -12,22 +13,27 @@
   .navbar {
     height: 90px;
   }
+
   .w-responsive {
     width: 25%;
   }
+
   @media (max-width: 768px) {
     .w-responsive {
       width: 100%;
     }
+
     nav {
       height: 90px !important;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     input {
       width: 90px !important;
     }
+
     i {
       width: 30px;
     }
@@ -37,65 +43,39 @@
     color: white;
     font-weight: lighter;
   }
+
   nav {
     z-index: 1;
   }
 </style>
 {% endblock %} {% block body%}
 
-<div
-  class="offcanvas offcanvas-start w-responsive"
-  tabindex="-1"
-  id="offcanvas"
-  data-bs-keyboard="false"
-  data-bs-backdrop="false"
->
+<div class="offcanvas offcanvas-start w-responsive" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
+  data-bs-backdrop="false">
   <div class="offcanvas-header">
     <h6 class="offcanvas-title d-sm-block" id="offcanvas">Menu</h6>
-    <button
-      type="button"
-      class="btn-close text-reset"
-      data-bs-dismiss="offcanvas"
-      aria-label="Close"
-    ></button>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body px-0">
-    <ul
-      class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start"
-      id="menu"
-    >
+    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
       <li class="nav-item">
         <a href="#" class="nav-link text-truncate">
-          <i class="fs-5 bi-house"></i
-          ><span class="ms-1 d-sm-inline">Home</span>
+          <i class="fs-5 bi-house"></i><span class="ms-1 d-sm-inline">Home</span>
         </a>
       </li>
       <li>
-        <a
-          href="#submenu1"
-          data-bs-toggle="collapse"
-          class="nav-link text-truncate"
-        >
-          <i class="fs-5 bi-speedometer2"></i
-          ><span class="ms-1 d-sm-inline">Dashboard</span>
+        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">
+          <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-sm-inline">Dashboard</span>
         </a>
       </li>
       <li>
         <a href="#" class="nav-link text-truncate">
-          <i class="fs-5 bi-table"></i
-          ><span class="ms-1 d-sm-inline">Orders</span></a
-        >
+          <i class="fs-5 bi-table"></i><span class="ms-1 d-sm-inline">Orders</span></a>
       </li>
       <li class="dropdown">
-        <a
-          href="#"
-          class="nav-link dropdown-toggle text-truncate"
-          id="dropdown"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="fs-5 bi-bootstrap"></i
-          ><span class="ms-1 d-sm-inline">Bootstrap</span>
+        <a href="#" class="nav-link dropdown-toggle text-truncate" id="dropdown" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-sm-inline">Bootstrap</span>
         </a>
         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
           <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -109,14 +89,11 @@
       </li>
       <li>
         <a href="#" class="nav-link text-truncate">
-          <i class="fs-5 bi-grid"></i
-          ><span class="ms-1 d-none d-sm-inline">Products</span></a
-        >
+          <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>
       </li>
       <li>
         <a href="#" class="nav-link text-truncate">
-          <i class="fs-5 bi-people"></i
-          ><span class="ms-1 d-none d-sm-inline">Customers</span>
+          <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span>
         </a>
       </li>
     </ul>
@@ -125,17 +102,8 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white d-none pc_item">
   <div class="container-xxl">
     <div>
-      <a
-        class="navbar-brand"
-        href="#"
-        style="width: fit-content; height: fit-content; display: flex"
-      >
-        <img
-          src="{% static 'admin/img/logo.png' %}"
-          alt=""
-          width="70"
-          height="60"
-        />
+      <a class="navbar-brand" href="#" style="width: fit-content; height: fit-content; display: flex">
+        <img src="{% static 'admin/img/logo.png' %}" alt="" width="70" height="60" />
       </a>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -144,14 +112,8 @@
           <a class="nav-link active" aria-current="page" href="#">Inicio</a>
         </li>
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
             Categorias
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -161,13 +123,9 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Buscar"
-          aria-label="Search"
-        />
+      <form class="d-flex" method=POST action="{% url 'search' %}">
+        {% csrf_token %}
+        <input name="searched" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" />
         <button class="btn" type="submit">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
@@ -176,26 +134,12 @@
   </div>
 </nav>
 <nav class="d-flex justify-content-between mobile_item">
-  <button
-    class="btn float-end"
-    data-bs-toggle="offcanvas"
-    data-bs-target="#offcanvas"
-    role="button"
-  >
-    <i
-      class="fa-solid fa-bars"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvas"
-    ></i>
+  <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+    <i class="fa-solid fa-bars" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
   </button>
   <img src="{% static 'admin/img/logo.png' %}" style="height: 75px" />
   <form class="d-flex">
-    <input
-      class="mobile form-control me-2"
-      type="search"
-      placeholder="Buscar"
-      aria-label="Search"
-    />
+    <input class="mobile form-control me-2" type="search" placeholder="Buscar" aria-label="Search" />
     <button class="btn" type="submit">
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
@@ -229,19 +173,14 @@
         </div>
 
         <div class="col col-xs-12 col-sm-12 col-md-12 col-l-12 col-xl-12">
-          <a
-            class="footer-link btn text-muted-footer"
-            href="https://wa.link/kpu8i2"
-          >
+          <a class="footer-link btn text-muted-footer" href="https://wa.link/kpu8i2">
             WhatsApp
           </a>
         </div>
 
         <div class="col col-xs-12 col-sm-12 col-md-12 col-l-12 col-xl-12">
-          <a
-            class="footer-link btn text-muted-footer"
-            href="https://instagram.com/tecnocreditooficial?igshid=MzRlODBiNWFlZA=="
-          >
+          <a class="footer-link btn text-muted-footer"
+            href="https://instagram.com/tecnocreditooficial?igshid=MzRlODBiNWFlZA==">
             Instagram
           </a>
         </div>
@@ -255,10 +194,7 @@
   </div>
 </footer>
 
-<script
-  src="https://kit.fontawesome.com/4439c74de6.js"
-  crossorigin="anonymous"
-></script>
+<script src="https://kit.fontawesome.com/4439c74de6.js" crossorigin="anonymous"></script>
 <script>
   $(document).ready(() => {
     let screen_width = screen.width;

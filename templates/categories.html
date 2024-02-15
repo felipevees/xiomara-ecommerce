@@ -1,126 +1,190 @@
 {% extends 'dashboard.html' %} {% load static%} {%block head2%}
 <style>
-  div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  a {
-    font-size: 15px !important;
-
-  }
-
-  .container2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .table-container {
     padding: 0 20px;
   }
 
   .table {
-    width: 100%;
+    background-color: #fff5;
     text-align: center;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+    overflow: hidden;
   }
 
-  .table th,
+  .table th {
+    font-size: 20px !important;
+    height: 50px !important;
+    text-align: center !important;
+    line-height: 50px !important;
+  }
+
   .table td {
     vertical-align: middle;
+    padding: 15px 0px;
+  }
+
+
+
+  .header-products {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .actualizar {
+    font-size: 14px !important;
+    color: #fff;
+    background: linear-gradient(90deg, #0066CC 0%, #00b4d8 100%);
+    padding: 7px 7px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white !important;
+    transition: padding 0.2s ease;
+
+    &:hover {
+      padding: 9px 7px;
+    }
+  }
+
+  .eliminar {
+    font-size: 14px !important;
+    color: #fff;
+    background: linear-gradient(90deg, #cc0000 0%, #d83a00 100%);
+    padding: 7px 7px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white !important;
+    transition: padding 0.2s ease;
+
+    &:hover {
+      padding: 9px 7px;
+    }
+  }
+
+  .addcategory {
+    transition: padding 0.2s ease !important;
+
+    &:hover {
+      padding: 6px 14px !important;
+    }
+  }
+
+  .category {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .category_header {
+    display: flex;
+    justify-content: space-between !important;
+    align-items: center !important;
+
+  }
+
+  .description {
+    max-width: 100px !important;
   }
 </style>
-{%endblock%} {%block content %}
-<div className="container2 mt-4">
-  <h2 class="px-4">Categorias</h2>
+{%endblock%} {%block content2 %}
+<div class="category">
+  <div class="category_header mt-4 mb-4">
+    <h2 class="px-4">Categorias</h2>
 
-  <div class="px-4">
-    <button class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Agregar
-      categoria</button>
+    <div class="px-4">
+      <button class="addcategory btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Agregar
+        categoria</button>
+    </div>
   </div>
-</div>
-<div class="container2 table-container mt-4">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">
-          tools
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for categoria in categorias %}
-      <tr>
-        <td>{{ categoria.nombre }}</td>
-        <td>{{ categoria.descripcion }}</td>
-        <td> <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateCategoryModal"
-            data-category-id="{{ categoria.id }}">Actualizar</a>
+  <div class="table-container mt-4">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">
+            tools
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for categoria in categorias %}
+        <tr>
+          <td>{{ categoria.nombre }}</td>
+          <td class="description">{{ categoria.descripcion }}</td>
+          <td> <a href="#" class="actualizar btn btn-primary" data-bs-toggle="modal"
+              data-bs-target="#updateCategoryModal" data-category-id="{{ categoria.id }}">Actualizar</a>
 
-          <a href="{% url 'deleteCategory' id=categoria.id %}" name="delete" class=" btn btn-danger">Eliminar</a>
+            <a href="{% url 'deleteCategory' id=categoria.id %}" name="delete"
+              class="eliminar btn btn-danger">Eliminar</a>
 
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
 
 
-<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
-        <h3 class="modal-title" id="addCategoryModalLabel">Agregar nueva categoria</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="post" action="{% url 'createCategory' %}">
-          {% csrf_token %}
+  <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
+          <h3 class="modal-title" id="addCategoryModalLabel">Agregar nueva categoria</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="{% url 'createCategory' %}" class="my-4">
+            {% csrf_token %}
 
-          <div class="mb-3">
-            <label for="" class="form-label">Nombre</label>
-            <input name="nombre" type="text">
-          </div>
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input name="nombre" type="text" class="form-control" required>
+            </div>
 
-          <div class="mb-3">
-            <label for="" class="form-label">Descripción</label>
-            <input name="descripcion" type="text">
-          </div>
-          <button type="submit" class="btn btn-success">Crear Categoria</button>
-        </form>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <input name="descripcion" type="text" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Crear Categoria</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
-        <h3 class="modal-title" id="updateCategoryLabel">Actualizar categoria</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form method="post" action="{% url 'updateCategory' id=0 %}" id="updateCategoryForm">
-          {% csrf_token %}
-          <input type="hidden" name="category_id" id="updateCategoryId" value="">
+  <div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="mt-4 mb-4 px-4 d-flex justify-content-between align-items-center w-100">
+          <h3 class="modal-title" id="updateCategoryLabel">Actualizar categoria</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="{% url 'updateCategory' id=0 %}" id="updateCategoryForm" class="my-4">
+            {% csrf_token %}
+            <input type="hidden" name="category_id" id="updateCategoryId" value="">
 
-          <div class="mb-3">
-            <label for="" class="form-label">Nombre</label>
-            <input name="nombre" type="text">
-          </div>
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input name="nombre" type="text" class="form-control" required>
+            </div>
 
-          <div class="mb-3">
-            <label for="" class="form-label">Descripción</label>
-            <input name="descripcion" type="text">
-          </div>
-          <button type="submit" class="btn btn-success">Actualizar Categoria </button>
-        </form>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción</label>
+              <input name="descripcion" type="text" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-success">Actualizar Categoria</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
