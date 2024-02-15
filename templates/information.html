@@ -1,16 +1,148 @@
 {% extends 'index.html' %}
-{% load static %} 
+{% load static %}
 {% block head%}
-<style>
-  body,
-  html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
-  
-</style>
+<script src="https://kit.fontawesome.com/4439c74de6.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../static/admin/css/information.css">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Montagu+Slab:opsz,wght@16..144,100..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Protest+Strike&display=swap">
+
 {%endblock%}
 {% block body%}
-    <div>Hola mundo</div>
+<!-- Contenido para PC -->
+<div class="pc_item">
+  <!-- Botón de regresar -->
+  <div class="container first-container">
+    <div class="row mb-5 align-items-center">
+      <div class="col-lg-6 col-md-12 d-flex align-items-center">
+        <button type="button" class="btn py-3 fa-2x" style="color: black; background-color: transparent;">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Descripción del producto -->
+  <div class="container-lg first-container" style="margin-top: -35px;">
+    <div class="row mb-5">
+      <div class="col-lg-7 pl-0">
+        <img src="../static/admin/img/carousel2.jpg" class="img-fluid" alt="Imagen del producto"
+          style="border-radius: 40px;">
+      </div>
+      <div class="col-lg-5 pl-lg-3">
+        <!-- Título -->
+        <h1 class="mb-4 mt-0 text-lg-start"
+          style="color: black ;font-family: 'Playfair Display', sans-serif; font-size: 56px; white-space: nowrap;">
+          Audífonos Inalámbricos
+        </h1>
+        <!-- Precio -->
+        <div class="lighter-font display-5 text-lg-start mb-4" style="font-family: 'Lato';">
+          $ 2.220.900
+        </div>
+        <!-- Descripción -->
+        <div class="col-lg-12">
+          <p class="text-start text-muted"
+            style="font-size: 22px; line-height: 2.3; padding-top: 0px; padding-bottom: 0px;">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Sed accumsan malesuada velit nec hendrerit. Quisque bibendum urna vel orci ultrices.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </p>
+        </div>
+        <!-- Botones de compartir y WhatsApp -->
+        <div class="row" style="margin-top: 80px;">
+          <div class="col-lg-6 col-md-6 mb-3 text-center" style="margin-left: auto;">
+            <!-- Botón de compartir -->
+            <button class="btnsh">
+              <i class="fa-solid fa-share-nodes"></i>
+            </button>
+          </div>
+          <div class="col-lg-6 col-md-6 mb-3 text-center">
+            <!-- Botón de WhatsApp -->
+            <button class="btnwh ">
+              <i class="fa-brands fa-whatsapp"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contenido para móvil -->
+<div class="mobile_item d-none">
+  <!-- Botón de regresar -->
+  <div class="container">
+    <div class="row mb-3 align-items-center">
+      <div class="col-6 col-md-auto d-flex align-items-center">
+        <button type="button" class="btn py-2 px-3 fa-2x" style="color: black; background-color: transparent;">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Descripción del producto -->
+    <div class="row mb-5 align-items-center">
+      <div class="col-12">
+        <img src="../static/admin/img/carousel2.jpg" class="img-fluid mt-2 mb-3" alt="Imagen del producto"
+          style="border-radius: 30px;">
+      </div>
+      <div class="col-12 text-start">
+        <h1 class="mb-3 mt-0" style="font-size: 8vw;">Audífonos Inalámbricos</h1>
+        <div class="display-5" style="font-size: 7vw;">$ 2.220.900</div>
+      </div>
+    </div>
+
+    <div class="row mb-5">
+      <div class="col-lg-12">
+        <p class="text-muted" style="font-size: 5vw; line-height: 2.1; text-align: left; margin-left: 7px; margin-right: 7px;">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Sed accumsan malesuada velit nec hendrerit. Quisque bibendum urna vel orci ultrices.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-12">
+        <!-- Botones de compartir y WhatsApp -->
+        <div class="btn_container row">
+          <div class="col-6">
+            <button class="btnsh-mobile">
+              <i class="fa-solid fa-share-nodes"></i>
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="btnwh-mobile">
+              <i class="fa-brands fa-whatsapp"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+<!-- Script para cambiar entre contenido de PC y móvil -->
+<script>
+  $(document).ready(() => {
+    let screen_width = screen.width;
+    if (screen_width < 768) {
+      $(".pc_item").addClass("d-none");
+      $(".mobile_item").removeClass("d-none");
+    } else {
+      $(".mobile_item").addClass("d-none");
+      $(".pc_item").removeClass("d-none");
+    }
+  });
+</script>
+
 {%endblock%}
