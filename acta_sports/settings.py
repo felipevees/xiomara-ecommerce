@@ -89,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'acta_sports_bd',
         'USER': 'postgres',
-        'PASSWORD': 'Pipeescobar#4',
+        'PASSWORD': '12345',
         'HOST': 'localhost',  # Puedes cambiar esto según la ubicación de tu base de datos
         'PORT': '5432',       # Puerto predeterminado de PostgreSQL
     }
