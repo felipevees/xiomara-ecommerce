@@ -1,0 +1,116 @@
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-family: "Playfair Display";
+  font-family: "Open Sans";
+  font-family: "Lato";
+}
+
+.container {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+.lighter-font {
+  font-weight: 200;
+}
+
+.first-container {
+  margin-left: 30px;
+}
+
+.btnsh {
+  font-weight: 0;
+  font-size: 30px;
+  color: #262236;
+  background-color: #dad9dd;
+  padding: 10px 50px;
+  border: solid #0a191f 2px;
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+  border-radius: 10px;
+  transition: background-color 1000ms, padding 1000ms;
+  cursor: pointer;
+}
+
+.btnsh:hover {
+  padding: 10px 70px;
+  background-color: #dad9dd;
+}
+
+.btnwh {
+  font-family: Nunito;
+  font-weight: 0;
+  font-size: 30px;
+  color: #000000;
+  background-color: #dad9dd;
+  padding: 10px 120px;
+  border: solid #0a191f 2px;
+  box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+  border-radius: 10px;
+  transition: 1000ms;
+  cursor: pointer;
+}
+
+.btnwh:hover {
+  transition: 1000ms;
+  padding: 10px 140px;
+  background: linear-gradient(90deg, #0b6e1a 0%, #17de49 100%);
+  color: #10db10;
+  border: solid 2px #37b367;
+}
+
+
+.btn_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px !important;
+  margin: 0px 2px ;
+}
+
+@media (max-width: 768px) {
+  .btnsh-mobile {
+    font-size: 16px; /* Tamaño del texto */
+    padding: 10px 10px; /* Espaciado dentro del botón */
+    min-width: 80px; /* Tamaño mínimo del botón */
+    max-width: 180px; /* Tamaño máximo del botón */
+    height: 40px; /* Altura del botón */
+    display: flex; /* Usar flexbox para alinear verticalmente */
+    align-items: center; /* Alinear verticalmente los contenidos */
+    justify-content:center; /* Alinear horizontalmente los contenidos */
+    color: #000000;
+    background-color: #dad9dd;
+    border: solid #0a191f 2px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 10px;
+    transition: 1000ms;
+    cursor: pointer;
+  }
+
+  .btnwh-mobile {
+    font-size: 20px; /* Tamaño del texto */
+    padding: 7px 20px; /* Espaciado dentro del botón */
+    min-width: 140px; /* Tamaño mínimo del botón */
+    max-width: 240px; /* Tamaño máximo del botón */
+    font-family: Nunito;
+    font-weight: 0;
+    color: #000000;
+    background-color: #dad9dd;
+    border: solid #0a191f 2px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 10px;
+    transition: 1000ms;
+    cursor: pointer;
+  }
+
+  .btnsh-mobile:hover {
+    padding: 8px 40px;
+  }
+
+  .btnwh-mobile:hover {
+    padding: 8px 40px;
+    transition: 1000ms;
+    background: linear-gradient(90deg, #0b6e1a 0%, #17de49 100%);
+    color: #10db10;
+    border: solid 2px #37b367;
+  }
+}
