@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+
 
 from productos.models import ImagenProducto, Producto
 from categorias.models import Categoria
@@ -114,16 +115,33 @@ def updateCategory(request, id):
 
 #Information
 
-def information(request):
-    products = Producto.objects.all()
-    return render(request, 'information.html', {'products': products})
+def information(request,item_id):
+    product = get_object_or_404(Producto, id=item_id)
+    return render(request, 'information.html', {'product': product,'item_id': item_id})
 
 #Search
 
 def search(request):
+    categorias = Categoria.objects.all()
     if request.method == "POST":
         searched = request.POST['searched'].lower()
         products = Producto.objects.filter(Q(nombre__icontains=searched) | Q(categorias__nombre__icontains=searched))
-        return render(request, 'search.html', {'searched': searched, 'products':products})
+        return render(request, 'search.html', {'searched': searched, 'products':products, 'categorias': categorias})
     else:
         return render(request, 'search.html')
+    
+def category(request):
+    categorias = Categoria.objects.all()
+    if request.method == 'POST':
+        category = request.POST.get('category', '')
+
+        if category:
+            products = Producto.objects.filter(Q(categorias__nombre__icontains=category))
+            return render(request, 'category.html', {'category': category, 'products': products, 'categorias': categorias})
+        else:
+            products = Producto.objects.all()
+            return render(request, 'category.html')
+
+def aboutUs(request):
+    categorias = Categoria.objects.all()
+    return render(request, 'aboutUs.html', {'categorias':categorias})

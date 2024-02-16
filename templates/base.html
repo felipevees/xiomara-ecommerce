@@ -44,82 +44,112 @@
     font-weight: lighter;
   }
 
+  .navbar-a {
+    font-size: 18px;
+    text-decoration: none;
+    color: white !important;
+  }
+
   nav {
     z-index: 1;
+    background-color: #0B4B88 !important;
+  }
+
+  .offcanvas {
+    width: 200px !important;
+    background-color: #0B4B88 !important;
+  }
+
+  .newBarSize {
+    width: 90% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .newBarSize input {
+    width: 75% !important;
   }
 </style>
 {% endblock %} {% block body%}
 
 <div class="offcanvas offcanvas-start w-responsive" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
   data-bs-backdrop="false">
-  <div class="offcanvas-header">
-    <h6 class="offcanvas-title d-sm-block" id="offcanvas">Menu</h6>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  <div style="height: fit-content;" class="offcanvas-header">
+    <h6 class="offcanvas-title d-sm-block navbar-a" id="offcanvas">Menu</h6>
+    <button style="background-color: #fff !important;" type="button" class="btn-close text-reset"
+      data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body px-0">
     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
       <li class="nav-item">
-        <a href="#" class="nav-link text-truncate">
-          <i class="fs-5 bi-house"></i><span class="ms-1 d-sm-inline">Home</span>
+        <a href="{% url 'home' %}" class="nav-link text-truncate navbar-a">
+          <i class="fs-5 bi-house"></i><span class="ms-1 d-sm-inline">Inicio</span>
         </a>
       </li>
       <li>
-        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">
-          <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-sm-inline">Dashboard</span>
+        <a href="{% url 'aboutUs' %}" class="nav-link text-truncate navbar-a">
+          <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-sm-inline">Sobre Nosotros</span>
         </a>
       </li>
-      <li>
-        <a href="#" class="nav-link text-truncate">
-          <i class="fs-5 bi-table"></i><span class="ms-1 d-sm-inline">Orders</span></a>
-      </li>
+
       <li class="dropdown">
-        <a href="#" class="nav-link dropdown-toggle text-truncate" id="dropdown" data-bs-toggle="dropdown"
+        <a href="#" class="nav-link dropdown-toggle text-truncate navbar-a" id="dropdown" data-bs-toggle="dropdown"
           aria-expanded="false">
-          <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-sm-inline">Bootstrap</span>
+          <i class="fs-5 bi-bootstrap "></i><span class="ms-1 d-sm-inline">Categorias</span>
         </a>
         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li>
-            <hr class="dropdown-divider" />
+          {% for item in categorias %}
+          <li class="dropdown-item">
+            <form action="{% url 'category' %}" method="post" class="category-form">
+              {% csrf_token %}
+              <input type="hidden" name="category" value="{{ item.nombre }}">
+              <button type="submit" class="category-button "
+                style="background-color: #0B4B88;border:none; font-size: 18px; font-weight: 400;   width: 100%; height: 60px; border-radius: 11px; color: white;">
+                {{ item.nombre }}
+              </button>
+            </form>
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          {% endfor %}
         </ul>
       </li>
-      <li>
-        <a href="#" class="nav-link text-truncate">
-          <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-truncate">
-          <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span>
-        </a>
-      </li>
+
     </ul>
   </div>
 </div>
-<nav class="navbar navbar-expand-md navbar-light bg-white d-none pc_item">
+<nav class="navbar navbar-expand-md navbar-light  d-none pc_item">
   <div class="container-xxl">
     <div>
-      <a class="navbar-brand" href="#" style="width: fit-content; height: fit-content; display: flex">
+      <a class="navbar-brand" href="{% url 'home' %}" style="width: fit-content; height: fit-content; display: flex">
         <img src="{% static 'admin/img/logo.png' %}" alt="" width="70" height="60" />
       </a>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          <a class="nav-link active navbar-a" aria-current="page" href="{% url 'home' %}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active navbar-a" aria-current="page" href="{% url 'aboutUs' %}">Sobre Nosostros</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
+          <a class="nav-link dropdown-toggle navbar-a" href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
             Categorias
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Fitness</a></li>
-            <li><a class="dropdown-item" href="#">Tecnologia</a></li>
-            <li><a class="dropdown-item" href="#">Accesorios</a></li>
+            {% for item in categorias %}
+            <li class="dropdown-item">
+              <form action="{% url 'category' %}" method="post" class="category-form">
+                {% csrf_token %}
+                <input type="hidden" name="category" value="{{ item.nombre }}">
+                <button type="submit" class="category-button "
+                  style="background-color: #0B4B88;border:none; font-size: 18px; font-weight: 400; width: 100%; height: 60px; border-radius: 11px; color: white;">
+                  {{ item.nombre }}
+                </button>
+              </form>
+            </li>
+            {% endfor %}
           </ul>
         </li>
       </ul>
@@ -127,7 +157,7 @@
         {% csrf_token %}
         <input name="searched" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" />
         <button class="btn" type="submit">
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <i style="color: #fff;" class="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
     </div>
@@ -135,13 +165,18 @@
 </nav>
 <nav class="d-flex justify-content-between mobile_item">
   <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
-    <i class="fa-solid fa-bars" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
+    <i style="color: #fff;" class="fa-solid fa-bars" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
   </button>
-  <img src="{% static 'admin/img/logo.png' %}" style="height: 75px" />
-  <form class="d-flex">
-    <input class="mobile form-control me-2" type="search" placeholder="Buscar" aria-label="Search" />
+  <div class="image-mobile ">
+    <a class="navbar-brand " href="{% url 'home' %}" style="width: fit-content; height: fit-content; display: flex">
+      <img src="{% static 'admin/img/logo.png' %}" alt="" width="70" height="60" />
+    </a>
+  </div>
+  <form method=POST action="{% url 'search' %}" class="d-flex search-bar">
+    {% csrf_token %}
+    <input name="searched" class="mobile form-control me-2" type="search" placeholder="Buscar" aria-label="Search" />
     <button class="btn" type="submit">
-      <i class="fa-solid fa-magnifying-glass"></i>
+      <i style="color: #fff;" class="fa-solid fa-magnifying-glass"></i>
     </button>
   </form>
 </nav>
@@ -201,9 +236,24 @@
     if (screen_width < 768) {
       $(".pc_item").addClass("d-none");
       $(".mobile_item").removeClass("d-none");
+      $(".image-mobile").addClass("d-none");
+      $(".search-bar").addClass("newBarSize");
     } else {
       $(".mobile_item").addClass("d-none");
+      $(".image-mobile").removeClass("d-none");
+      $(".search-bar").removeClass("newBarSize");
       $(".pc_item").removeClass("d-none");
+    }
+  });
+
+
+  $(window).on("resize", () => {
+    let screen_width = $(window).width();
+
+    if (screen_width < 768) {
+      $(".image-mobile").addClass("d-none");
+    } else {
+      $(".image-mobile").removeClass("d-none");
     }
   });
 </script>

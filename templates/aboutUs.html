@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head2 %}
+<style>
+    .aboutUs-container {
+        height: 100%;
+        background: #d7d7d7;
+        background: -webkit-linear-gradient(0deg, #d7d7d7 0%, #0b4b88 50%, #d7d7d7 100%);
+        background: linear-gradient(0deg, #d7d7d7 0%, #0b4b88 50%, #d7d7d7 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content-container {
+        background-color: white;
+        padding: 40px 70px;
+        margin: 0px 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        width: fit-content;
+    }
+</style>
+{%endblock%}
+
+{%block content%}
+<div class="aboutUs-container">
+    <div class="content-container">
+        <div class="mb-4">
+            <h1 style="color:#0b4b88">Sobre nosotros</h1>
+        </div>
+        <div style="max-width: 350px;">
+            <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido
+                el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona
+                que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró
+                hacer un libro de textos especimen.</p>
+        </div>
+    </div>
+</div>
+{%endblock%}

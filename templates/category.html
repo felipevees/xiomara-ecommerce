@@ -2,18 +2,12 @@
 {% load static %}
 
 {% block head2 %}
-
 <style>
-    .search-container {
+    .category-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: fit-content;
         flex-direction: column;
-    }
-
-    .no-product {
-        height: 100%;
     }
 
     .cards-container {
@@ -132,10 +126,10 @@
     }
 </style>
 {%endblock%}
+
 {%block content%}
-<div class="search-container {% if not searched %}no-product{%endif%}">
-    {% if searched %}
-    <h1 class="mt-4">Resultado de "{{searched}}"</h1>
+<div class="category-container mt-4">
+    <h1>{{category}}</h1>
     <div class="cards-container">
         {% for item in products %}
         <a href="{% url 'information' item.id %}" class=" Card">
@@ -163,10 +157,7 @@
             </div>
         </a>
         {% endfor %}
-    </div>
-    {% else %}
-    <h2>Olvidaste buscar un producto</h2>
-    {%endif%}
-</div>
 
+    </div>
+</div>
 {%endblock%}

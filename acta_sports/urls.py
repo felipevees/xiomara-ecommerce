@@ -19,7 +19,7 @@ from django.urls import path, include
 
 from django.conf import settings
 from django.conf.urls.static import static
-from usuarios.views import home, login, dashboard, information, products,createProduct,deleteProduct,updateProduct, categories, createCategory, deleteCategory, updateCategory, search
+from usuarios.views import home, login, dashboard, information, products,createProduct,deleteProduct,updateProduct, categories, createCategory, deleteCategory, updateCategory, search, category, aboutUs
 
 # ... tus otras URLpatterns
 
@@ -29,7 +29,7 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('dashboard/', dashboard, name='dashboard'),
-    path('information/', information, name='information'),
+    path('information/<int:item_id>/', information, name='information'),
     path('products/', products, name='products'),
     path('createProduct/', createProduct, name='createProduct'),
     path('deleteProduct/<int:id>/', deleteProduct, name='deleteProduct'),
@@ -39,6 +39,8 @@ urlpatterns = [
     path('deleteCategory/<int:id>/', deleteCategory, name='deleteCategory'),
     path('updateCategory/<int:id>/', updateCategory, name="updateCategory"),
     path('search/', search, name='search'),
+    path('category/', category, name="category"),
+    path('aboutUs/', aboutUs, name="aboutUs"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

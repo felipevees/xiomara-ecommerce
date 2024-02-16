@@ -6,17 +6,12 @@ body {
   font-family: "Lato";
 }
 
-.container {
-  padding-left: 25px;
-  padding-right: 25px;
-}
+
 .lighter-font {
   font-weight: 200;
 }
 
-.first-container {
-  margin-left: 30px;
-}
+
 
 .btnsh {
   font-weight: 0;
