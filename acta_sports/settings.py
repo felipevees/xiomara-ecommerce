@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'acta_sports.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Bd_actasports',
+        'NAME': 'xiomaraDB',
         'USER': 'postgres',
-        'PASSWORD': '12345',
+        'PASSWORD': 'Pipeescobar#4',
         'HOST': 'localhost',  
         'PORT': '5432',       
     }
