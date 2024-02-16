@@ -137,6 +137,9 @@
     justify-content: center;
     align-items: center;
   }
+  .img-carousel-border-responsive{
+    border-radius: 15px;
+  }
 
   @media (min-width: 1000px) {
     .Card {
@@ -154,7 +157,9 @@
     .Card {
       flex-basis: calc(20% - 20px);
     }
-
+    .img-carousel-border-responsive{
+      border-radius: 0px;
+    }
 
   }
 
@@ -181,17 +186,17 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active" style="overflow: hidden;">
-        <img style="border-radius:15px;" class="img-carousel" src="{% static 'admin/img/carousel1.jpg' %}"
+        <img class="img-carousel-border-responsive img-carousel" src="{% static 'admin/img/carousel1.jpg' %}"
           class="d-block w-100" alt="First Slide">
 
       </div>
       <div class="carousel-item" style="overflow: hidden;">
-        <img style="border-radius:15px;" class="img-carousel" src="{% static 'admin/img/carousel1.jpg' %}"
+        <img class="img-carousel-border-responsive img-carousel" src="{% static 'admin/img/carousel1.jpg' %}"
           class="d-block w-100" alt="Second Slide">
 
       </div>
       <div class="carousel-item" style="overflow: hidden;">
-        <img style="border-radius:15px;" class="img-carousel" src="{% static 'admin/img/carousel1.jpg' %}"
+        <img class="img-carousel-border-responsive img-carousel" src="{% static 'admin/img/carousel1.jpg' %}"
           class="d-block w-100" alt="Third Slide">
 
       </div>
